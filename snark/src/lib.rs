@@ -11,7 +11,8 @@
 #![forbid(unsafe_code)]
 
 use ark_ff::{PrimeField, ToBytes};
-use ark_relations::r1cs::ConstraintSynthesizer;
+// use ark_relations::r1cs::ConstraintSynthesizer;
+use ark_relations::plonkcs::ConstraintSynthesizer;
 use ark_std::rand::{CryptoRng, RngCore};
 use core::fmt::Debug;
 
@@ -51,8 +52,8 @@ pub trait SNARK<F: PrimeField> {
     ) -> Result<Self::Proof, Self::Error>;
 
     /// Checks that `proof` is a valid proof of the satisfaction of circuit
-    /// encoded in `circuit_vk`, with respect to the public input `public_input`,
-    /// specified as R1CS constraints.
+    /// encoded in `circuit_vk`, with respect to the public input
+    /// `public_input`, specified as R1CS constraints.
     fn verify(
         circuit_vk: &Self::VerifyingKey,
         public_input: &[F],
@@ -68,8 +69,8 @@ pub trait SNARK<F: PrimeField> {
     ) -> Result<Self::ProcessedVerifyingKey, Self::Error>;
 
     /// Checks that `proof` is a valid proof of the satisfaction of circuit
-    /// encoded in `circuit_pvk`, with respect to the public input `public_input`,
-    /// specified as R1CS constraints.
+    /// encoded in `circuit_pvk`, with respect to the public input
+    /// `public_input`, specified as R1CS constraints.
     fn verify_with_processed_vk(
         circuit_pvk: &Self::ProcessedVerifyingKey,
         public_input: &[F],
